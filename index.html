@@ -1,0 +1,566 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="MediVision explore les applications, les possibilités et les limites de l'intelligence artificielle dans le domaine médical.">
+  <meta name="theme-color" content="#071827">
+
+  <title>MediVision | L'intelligence artificielle au service de la médecine</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="container nav-container">
+
+      <a href="index.html" class="logo" aria-label="Accueil MediVision">
+        <span class="logo-icon">M</span>
+        <span>Medi<span class="logo-accent">Vision</span></span>
+      </a>
+
+      <button class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="nav-links">
+        <a href="index.html" class="active">Accueil</a>
+        <a href="ai-medicale.html">IA médicale</a>
+        <a href="applications.html">Applications</a>
+        <a href="laboratoire.html">Laboratoire</a>
+        <a href="quiz.html">Quiz</a>
+      </nav>
+
+    </div>
+  </header>
+
+
+  <main>
+
+    <!-- Section principale -->
+    <section class="hero">
+      <div class="container hero-content">
+
+        <div class="hero-text reveal">
+
+          <span class="eyebrow">
+            SCIENCE · TECHNOLOGIE · SANTÉ
+          </span>
+
+          <h1>
+            Le futur de la médecine
+            <span>est intelligent.</span>
+          </h1>
+
+          <p class="hero-description">
+            Découvrez comment l'intelligence artificielle transforme
+            la médecine, facilite l'analyse des données et accompagne
+            les professionnels de santé dans leurs décisions.
+          </p>
+
+          <div class="hero-buttons">
+            <a href="ai-medicale.html" class="btn btn-primary">
+              Découvrir l'IA médicale
+            </a>
+
+            <a href="laboratoire.html" class="btn btn-outline">
+              Explorer le laboratoire
+            </a>
+          </div>
+
+          <div class="hero-stats">
+            <div>
+              <strong>01</strong>
+              <span>Science</span>
+            </div>
+
+            <div>
+              <strong>02</strong>
+              <span>Innovation</span>
+            </div>
+
+            <div>
+              <strong>03</strong>
+              <span>Avenir</span>
+            </div>
+          </div>
+
+        </div>
+
+
+        <!-- Illustration du cerveau numérique -->
+        <div class="hero-visual reveal">
+
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+          <div class="orbit orbit-three"></div>
+
+          <div class="brain-container">
+
+            <svg class="brain-svg"
+                 viewBox="0 0 300 300"
+                 role="img"
+                 aria-label="Illustration d'un cerveau numérique">
+
+              <defs>
+                <linearGradient id="brainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#36b9e9"/>
+                  <stop offset="100%" stop-color="#258fd0"/>
+                </linearGradient>
+
+                <filter id="brainGlow">
+                  <feGaussianBlur stdDeviation="4" result="blur"/>
+                  <feMerge>
+                    <feMergeNode in="blur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+              </defs>
+
+              <g fill="none"
+                 stroke="url(#brainGradient)"
+                 stroke-width="3"
+                 stroke-linecap="round"
+                 filter="url(#brainGlow)">
+
+                <path d="M150 55 C120 30 85 55 90 90 C55 100 60 145 85 155 C65 190 95 225 125 215 C135 250 165 250 175 215 C205 225 235 190 215 155 C240 130 235 100 210 90 C215 55 180 30 150 55Z"/>
+
+                <path d="M150 55 L150 220"/>
+                <path d="M110 75 C130 90 120 110 100 115"/>
+                <path d="M190 75 C170 90 180 110 200 115"/>
+                <path d="M90 130 C120 125 125 150 110 165"/>
+                <path d="M210 130 C180 125 175 150 190 165"/>
+                <path d="M120 185 C140 170 145 195 140 215"/>
+                <path d="M180 185 C160 170 155 195 160 215"/>
+
+                <circle cx="150" cy="55" r="5" fill="#64d8f0"/>
+                <circle cx="90" cy="90" r="5" fill="#64d8f0"/>
+                <circle cx="210" cy="90" r="5" fill="#64d8f0"/>
+                <circle cx="85" cy="155" r="5" fill="#64d8f0"/>
+                <circle cx="215" cy="155" r="5" fill="#64d8f0"/>
+                <circle cx="125" cy="215" r="5" fill="#64d8f0"/>
+                <circle cx="175" cy="215" r="5" fill="#64d8f0"/>
+              </g>
+
+              <g fill="#64d8f0">
+                <circle cx="150" cy="135" r="4"/>
+                <circle cx="120" cy="105" r="3"/>
+                <circle cx="180" cy="105" r="3"/>
+                <circle cx="110" cy="180" r="3"/>
+                <circle cx="190" cy="180" r="3"/>
+              </g>
+
+            </svg>
+
+          </div>
+
+          <div class="floating-card card-one">
+            <span class="floating-dot"></span>
+            Analyse intelligente
+          </div>
+
+          <div class="floating-card card-two">
+            <span class="floating-dot"></span>
+            Données médicales
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- Présentation -->
+    <section class="section intro-section">
+      <div class="container">
+
+        <div class="section-heading reveal">
+          <span class="eyebrow">01 — DÉCOUVERTE</span>
+
+          <h2>
+            Quand l'intelligence rencontre
+            <span>la médecine.</span>
+          </h2>
+
+          <p>
+            L'intelligence artificielle ouvre de nouvelles perspectives
+            pour comprendre les maladies, analyser les informations
+            médicales et soutenir les professionnels de santé.
+            Elle constitue un outil d'aide, et non un remplacement
+            du jugement médical.
+          </p>
+        </div>
+
+
+        <div class="feature-grid">
+
+          <article class="feature-card reveal">
+            <div class="feature-icon">✦</div>
+            <h3>Comprendre</h3>
+            <p>
+              Découvrez les principes de l'intelligence artificielle
+              et son fonctionnement dans le domaine médical.
+            </p>
+            <a href="ai-medicale.html">En savoir plus →</a>
+          </article>
+
+
+          <article class="feature-card reveal">
+            <div class="feature-icon">⌘</div>
+            <h3>Explorer</h3>
+            <p>
+              Parcourez les différentes applications de l'IA
+              dans les établissements de santé.
+            </p>
+            <a href="applications.html">Voir les applications →</a>
+          </article>
+
+
+          <article class="feature-card reveal">
+            <div class="feature-icon">◈</div>
+            <h3>Expérimenter</h3>
+            <p>
+              Testez des simulations pédagogiques pour mieux
+              comprendre certaines technologies intelligentes.
+            </p>
+            <a href="laboratoire.html">Accéder au laboratoire →</a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Applications médicales -->
+    <section class="section applications-section">
+      <div class="container">
+
+        <div class="section-heading reveal">
+          <span class="eyebrow">02 — APPLICATIONS</span>
+
+          <h2>
+            Une technologie au service
+            <span>de la santé.</span>
+          </h2>
+
+          <p>
+            L'IA intervient dans plusieurs domaines de la médecine,
+            de l'imagerie médicale à la surveillance des patients.
+            Ses résultats doivent être interprétés dans leur contexte
+            par des professionnels qualifiés.
+          </p>
+        </div>
+
+
+        <div class="application-grid">
+
+          <article class="application-card reveal">
+            <img
+              src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=900&q=85"
+              alt="Professionnels de santé utilisant des technologies médicales"
+              loading="lazy">
+
+            <div class="application-content">
+              <span>01 / IMAGERIE</span>
+              <h3>Analyse des images médicales</h3>
+              <p>
+                Aider les professionnels à examiner les radiographies
+                et les autres images médicales.
+              </p>
+            </div>
+          </article>
+
+
+          <article class="application-card reveal">
+            <img
+              src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?auto=format&fit=crop&w=900&q=85"
+              alt="Recherche scientifique en laboratoire"
+              loading="lazy">
+
+            <div class="application-content">
+              <span>02 / RECHERCHE</span>
+              <h3>Recherche médicale</h3>
+              <p>
+                Analyser de grandes quantités de données pour
+                soutenir les travaux scientifiques.
+              </p>
+            </div>
+          </article>
+
+
+          <article class="application-card reveal">
+            <img
+              src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=900&q=85"
+              alt="Médecin consultant des informations médicales"
+              loading="lazy">
+
+            <div class="application-content">
+              <span>03 / SUIVI</span>
+              <h3>Suivi des patients</h3>
+              <p>
+                Faciliter l'observation de certaines données
+                et l'accompagnement des patients.
+              </p>
+            </div>
+          </article>
+
+        </div>
+
+        <div class="center-button reveal">
+          <a href="applications.html" class="btn btn-outline">
+            Découvrir toutes les applications
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- Section vidéo éducative -->
+    <section class="video-section" id="video">
+
+      <div class="video-heading reveal">
+
+        <span class="eyebrow">03 — APPRENDRE EN VIDÉO</span>
+
+        <h2>
+          L'IA médicale <span>en vidéo.</span>
+        </h2>
+
+        <p>
+          Découvrez comment l'intelligence artificielle
+          transforme l'analyse des données de santé.
+        </p>
+
+      </div>
+
+      <div class="video-wrapper reveal">
+
+        <iframe
+            src="https://ultv.univ-lorraine.fr/video/23198-intelligence-artificielle-et-les-donnees-de-sante/?is_iframe=true"
+            title="Intelligence artificielle et les données de santé — Université de Lorraine"
+            loading="lazy"
+            allowfullscreen>
+        </iframe>
+
+      </div>
+
+      <p class="video-caption">
+        Conférence universitaire — Université de Lorraine
+
+        <a
+            href="https://ultv.univ-lorraine.fr/video/23198-intelligence-artificielle-et-les-donnees-de-sante/"
+            target="_blank"
+            rel="noopener noreferrer">
+            Voir la vidéo sur le site officiel →
+        </a>
+      </p>
+
+    </section>
+
+
+    <!-- Section expérience visuelle -->
+    <section class="visual-section">
+      <div class="container visual-container">
+
+        <div class="visual-content reveal">
+
+          <span class="eyebrow">04 — INNOVATION</span>
+
+          <h2>
+            La médecine entre
+            dans une nouvelle ère.
+          </h2>
+
+          <p>
+            Des algorithmes intelligents aux systèmes d'aide
+            à l'analyse, les nouvelles technologies contribuent
+            à faire évoluer la pratique médicale.
+            Leur utilisation exige toutefois une évaluation
+            rigoureuse de leur fiabilité et de leur sécurité.
+          </p>
+
+          <a href="ai-medicale.html" class="btn btn-primary">
+            Comprendre cette évolution
+          </a>
+
+        </div>
+
+
+        <div class="visual-panel reveal">
+
+          <div class="visual-panel-top">
+            <span>VISUALISATION NUMÉRIQUE</span>
+            <span class="live-indicator">● SIMULATION</span>
+          </div>
+
+          <div class="visual-animation">
+
+            <div class="visual-circle circle-a"></div>
+            <div class="visual-circle circle-b"></div>
+            <div class="visual-circle circle-c"></div>
+
+            <div class="visual-core">
+              <span>IA</span>
+            </div>
+
+            <div class="visual-particle particle-a"></div>
+            <div class="visual-particle particle-b"></div>
+            <div class="visual-particle particle-c"></div>
+
+          </div>
+
+          <div class="visual-panel-bottom">
+            <span>RÉSEAU NEURONAL</span>
+            <span>DONNÉES · ANALYSE · APPRENTISSAGE</span>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- Laboratoire -->
+    <section class="section lab-section">
+      <div class="container">
+
+        <div class="lab-banner reveal">
+
+          <div class="lab-banner-content">
+            <span class="eyebrow">05 — EXPÉRIENCE INTERACTIVE</span>
+
+            <h2>
+              Ne vous contentez pas de lire.
+              <span>Expérimentez.</span>
+            </h2>
+
+            <p>
+              Entrez dans notre laboratoire virtuel et découvrez
+              des expériences pédagogiques pour comprendre
+              certaines applications de l'intelligence artificielle.
+            </p>
+
+            <a href="laboratoire.html" class="btn btn-primary">
+              Lancer une expérience
+            </a>
+          </div>
+
+          <div class="lab-banner-visual">
+            <div class="lab-ring ring-one"></div>
+            <div class="lab-ring ring-two"></div>
+            <div class="lab-symbol">✧</div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- Sources scientifiques -->
+    <section class="section references-section">
+      <div class="container">
+
+        <div class="section-heading reveal">
+          <span class="eyebrow">06 — RÉFÉRENCES</span>
+
+          <h2>
+            Des informations fondées sur
+            <span>des sources fiables.</span>
+          </h2>
+
+          <p>
+            Pour approfondir le sujet, consultez ces publications
+            et ressources institutionnelles consacrées à l'intelligence
+            artificielle et à son utilisation dans le domaine de la santé.
+          </p>
+        </div>
+
+
+        <div class="feature-grid">
+
+          <article class="feature-card reveal">
+            <div class="feature-icon">✦</div>
+
+            <h3>Organisation mondiale de la Santé</h3>
+
+            <p>
+              Publication consacrée à l'éthique et à la gouvernance
+              de l'intelligence artificielle dans le domaine de la santé,
+              avec des principes et des recommandations.
+            </p>
+
+            <a
+              href="https://www.who.int/publications/i/item/9789240029200"
+              target="_blank"
+              rel="noopener noreferrer">
+              Consulter la publication →
+            </a>
+          </article>
+
+
+          <article class="feature-card reveal">
+            <div class="feature-icon">⌘</div>
+
+            <h3>Food and Drug Administration</h3>
+
+            <p>
+              Ressource institutionnelle présentant les dispositifs
+              médicaux intégrant l'IA, leur évaluation et les enjeux
+              liés à leur sécurité et à leur suivi.
+            </p>
+
+            <a
+              href="https://www.fda.gov/medical-devices/digital-health-center-excellence/artificial-intelligence-enabled-medical-devices"
+              target="_blank"
+              rel="noopener noreferrer">
+              Consulter la ressource →
+            </a>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- Pied de page -->
+  <footer class="footer">
+    <div class="container footer-content">
+
+      <a href="index.html" class="logo">
+        <span class="logo-icon">M</span>
+        <span>Medi<span class="logo-accent">Vision</span></span>
+      </a>
+
+      <p>
+        Explorer l'intelligence artificielle au service de la médecine.
+      </p>
+
+      <span class="footer-copy">
+        © <span id="current-year"></span> MediVision. Tous droits réservés.
+      </span>
+
+    </div>
+  </footer>
+
+
+  <script src="js/main.js"></script>
+
+</body>
+</html>

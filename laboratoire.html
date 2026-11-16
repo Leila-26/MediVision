@@ -1,0 +1,886 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Expérimentez une simulation pédagogique du fonctionnement d'un modèle d'intelligence artificielle.">
+    <meta name="theme-color" content="#071827">
+
+    <title>Laboratoire interactif | MediVision</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+
+/* =========================================
+   MEDIVISION 2.0 — LABORATORY DESIGN
+   ========================================= */
+
+.lab-hero {
+    padding: 75px 0;
+    border-bottom: 1px solid var(--border);
+    background:
+        radial-gradient(circle at 80% 40%, rgba(54,185,233,.16), transparent 35%),
+        linear-gradient(180deg, rgba(12,36,56,.4), transparent);
+}
+
+.page-label {
+    display: inline-block;
+    padding: 8px 14px;
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    color: var(--cyan);
+    background: rgba(100,216,240,.05);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.lab-hero h1 {
+    max-width: 800px;
+    margin-top: 24px;
+    color: var(--white);
+    font-family: var(--display);
+    font-size: clamp(40px, 6vw, 65px);
+    line-height: 1.15;
+}
+
+.lab-hero h1 span {
+    color: var(--cyan);
+}
+
+.lab-hero p {
+    max-width: 680px;
+    margin-top: 20px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+/* Main layout */
+
+.lab-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    align-items: start;
+}
+
+.lab-panel {
+    padding: 26px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: linear-gradient(145deg, #102c44, #091c2c);
+    transition: border-color .35s ease, box-shadow .35s ease;
+}
+
+.lab-panel:hover {
+    border-color: rgba(100,216,240,.3);
+    box-shadow: 0 15px 40px rgba(0,0,0,.15);
+}
+
+.panel-heading {
+    margin-bottom: 10px;
+    color: var(--white);
+    font-family: var(--display);
+    font-size: 21px;
+}
+
+.panel-description {
+    margin-bottom: 23px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+/* =========================================
+   SAMPLE SELECTION
+   ========================================= */
+
+.sample-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.sample-button {
+    position: relative;
+    padding: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: rgba(4,17,29,.55);
+    color: var(--text);
+    cursor: pointer;
+    transition:
+        transform .35s ease,
+        border-color .35s ease,
+        box-shadow .35s ease,
+        background .35s ease;
+}
+
+.sample-button:hover {
+    transform: translateY(-6px);
+    border-color: var(--cyan);
+    box-shadow: 0 12px 28px rgba(54,185,233,.16);
+}
+
+.sample-button.selected {
+    border-color: var(--cyan);
+    background: rgba(54,185,233,.13);
+    box-shadow:
+        0 0 0 1px rgba(100,216,240,.15),
+        0 0 24px rgba(54,185,233,.18);
+}
+
+.sample-art {
+    position: relative;
+    isolation: isolate;
+    height: 95px;
+    display: grid;
+    place-items: center;
+    margin-bottom: 10px;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #071827;
+}
+
+.sample-art svg {
+    width: 100%;
+    height: 100%;
+    transition: transform .5s ease, filter .5s ease;
+}
+
+.sample-button:hover .sample-art svg {
+    transform: scale(1.12);
+    filter: drop-shadow(0 0 7px rgba(100,216,240,.4));
+}
+
+/* Moving scan line */
+
+.sample-art::after {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    right: 0;
+    top: -5px;
+    height: 3px;
+    opacity: 0;
+    pointer-events: none;
+    background: var(--cyan);
+    box-shadow: 0 0 12px 3px rgba(100,216,240,.65);
+}
+
+.sample-button.selected .sample-art::after {
+    opacity: 1;
+    animation: sampleScan 2.5s linear infinite;
+}
+
+@keyframes sampleScan {
+    from {
+        top: 0;
+    }
+    to {
+        top: 100%;
+    }
+}
+
+.sample-button span {
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.selected-info {
+    margin-top: 20px;
+    padding: 15px;
+    border-left: 3px solid var(--cyan);
+    border-radius: 0 8px 8px 0;
+    background: rgba(54,185,233,.07);
+    color: var(--text);
+    font-size: 12px;
+    line-height: 1.8;
+    transition: background .3s ease;
+}
+
+/* =========================================
+   ANALYZE BUTTON
+   ========================================= */
+
+.analyze-button {
+    position: relative;
+    width: 100%;
+    margin-top: 22px;
+    padding: 15px 20px;
+    overflow: hidden;
+    border: 0;
+    border-radius: 9px;
+    background: linear-gradient(100deg, #258fd0, #36b9e9);
+    color: #04111d;
+    font-family: var(--display);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(37,143,208,.2);
+    transition: transform .3s ease, box-shadow .3s ease, opacity .3s ease;
+}
+
+.analyze-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 70%;
+    height: 100%;
+    background: linear-gradient(
+        110deg,
+        transparent,
+        rgba(255,255,255,.45),
+        transparent
+    );
+    transform: skewX(-20deg);
+}
+
+.analyze-button:not(:disabled):hover {
+    transform: translateY(-3px);
+    box-shadow: 0 9px 28px rgba(37,143,208,.35);
+}
+
+.analyze-button:not(:disabled):hover::before {
+    animation: buttonShine .8s ease;
+}
+
+@keyframes buttonShine {
+    to {
+        left: 150%;
+    }
+}
+
+.analyze-button:disabled {
+    opacity: .55;
+    cursor: wait;
+    transform: none;
+}
+
+/* =========================================
+   RESULT PANEL
+   ========================================= */
+
+.result-panel {
+    min-height: 370px;
+}
+
+.result-placeholder {
+    min-height: 275px;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    color: var(--muted);
+}
+
+.result-placeholder .placeholder-icon {
+    margin-bottom: 15px;
+    color: var(--cyan);
+    font-size: 45px;
+    text-shadow: 0 0 18px rgba(100,216,240,.5);
+    animation: iconPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes iconPulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: .65;
+    }
+    50% {
+        transform: scale(1.3);
+        opacity: 1;
+    }
+}
+
+.result-placeholder p {
+    max-width: 250px;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.result-content {
+    display: none;
+}
+
+.result-content.visible {
+    display: block;
+    animation: resultReveal .7s ease both;
+}
+
+@keyframes resultReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(25px) scale(.97);
+        filter: blur(5px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+.result-status {
+    display: inline-block;
+    padding: 7px 11px;
+    border: 1px solid rgba(100,216,240,.35);
+    border-radius: 30px;
+    color: var(--cyan);
+    background: rgba(100,216,240,.07);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.result-title {
+    margin: 20px 0 8px;
+    color: var(--white);
+    font-family: var(--display);
+    font-size: 23px;
+}
+
+.result-description {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+/* =========================================
+   CONFIDENCE BAR
+   ========================================= */
+
+.confidence-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 28px;
+    margin-bottom: 10px;
+    color: var(--text);
+    font-size: 12px;
+}
+
+.confidence-heading strong {
+    color: var(--cyan);
+}
+
+.confidence-track {
+    height: 10px;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #04111d;
+}
+
+.confidence-fill {
+    position: relative;
+    width: 0;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #258fd0, #64d8f0);
+    box-shadow: 0 0 15px rgba(100,216,240,.4);
+    transition: width 1.2s cubic-bezier(.2,.8,.2,1);
+}
+
+.confidence-fill::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.5),
+        transparent
+    );
+    animation: confidenceShine 2s linear infinite;
+}
+
+@keyframes confidenceShine {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(100%);
+    }
+}
+
+.result-note {
+    margin-top: 22px;
+    padding: 14px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    color: var(--muted);
+    background: rgba(4,17,29,.4);
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+/* =========================================
+   TECHNICAL EXPLANATION
+   ========================================= */
+
+.technical-section {
+    margin-top: 75px;
+}
+
+.section-title {
+    margin: 18px 0;
+    color: var(--white);
+    font-family: var(--display);
+    font-size: clamp(27px, 4vw, 38px);
+}
+
+.section-title span {
+    color: var(--cyan);
+}
+
+.section-description {
+    max-width: 750px;
+    margin-bottom: 30px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.9;
+}
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.step-card {
+    padding: 22px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: rgba(12,36,56,.6);
+    transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+}
+
+.step-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(100,216,240,.4);
+    box-shadow: 0 12px 30px rgba(0,0,0,.15);
+}
+
+.step-card .number {
+    color: var(--cyan);
+    font-family: var(--display);
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+.step-card h3 {
+    margin: 12px 0 8px;
+    color: var(--white);
+    font-size: 14px;
+}
+
+.step-card p {
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+/* =========================================
+   SCIENCE NOTE
+   ========================================= */
+
+.science-note {
+    margin-top: 40px;
+    padding: 25px;
+    border: 1px solid rgba(255,190,100,.3);
+    border-radius: 13px;
+    background: rgba(255,190,100,.05);
+}
+
+.science-note h3 {
+    margin-bottom: 10px;
+    color: #ffd18a;
+    font-family: var(--display);
+    font-size: 18px;
+}
+
+.science-note p {
+    color: var(--text);
+    font-size: 12px;
+    line-height: 1.9;
+}
+
+/* =========================================
+   RESPONSIVE DESIGN
+   ========================================= */
+
+@media (max-width: 850px) {
+    .steps-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+    .lab-hero {
+        padding: 60px 0;
+    }
+
+    .lab-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .sample-art {
+        height: 80px;
+    }
+}
+
+@media (max-width: 380px) {
+    .sample-list {
+        grid-template-columns: 1fr;
+    }
+
+    .sample-button {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        text-align: left;
+    }
+
+    .sample-art {
+        width: 85px;
+        height: 65px;
+        flex-shrink: 0;
+        margin: 0;
+    }
+
+    .steps-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================
+   ACCESSIBILITY
+   ========================================= */
+
+.sample-button:focus-visible,
+.analyze-button:focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+    }
+}
+
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="container nav-container">
+
+            <a href="index.html" class="logo" aria-label="Accueil MediVision">
+                <span class="logo-icon">M</span>
+                <span>Medi<span class="logo-accent">Vision</span></span>
+            </a>
+
+            <button class="menu-toggle"
+                    aria-label="Ouvrir le menu"
+                    aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav class="nav-links">
+                <a href="index.html">Accueil</a>
+                <a href="ai-medicale.html">IA médicale</a>
+                <a href="applications.html">Applications</a>
+                <a href="laboratoire.html" class="active">Laboratoire</a>
+                <a href="quiz.html">Quiz</a>
+            </nav>
+
+        </div>
+    </header>
+
+    <main>
+
+        <section class="lab-hero">
+            <div class="container reveal">
+
+                <span class="page-label">EXPÉRIENCE INTERACTIVE</span>
+
+                <h1>
+                    Bienvenue dans le
+                    <span>laboratoire IA.</span>
+                </h1>
+
+                <p>
+                    Découvrez comment un modèle informatique peut
+                    traiter des données, reconnaître des caractéristiques
+                    et produire un résultat. Sélectionnez un échantillon
+                    virtuel et lancez la simulation.
+                </p>
+
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+
+                <div class="lab-layout">
+
+                    <!-- SELECTION -->
+
+                    <section class="lab-panel reveal">
+
+                        <span class="page-label">ÉTAPE 01</span>
+
+                        <h2 class="panel-heading" style="margin-top:18px;">
+                            Choisir un échantillon
+                        </h2>
+
+                        <p class="panel-description">
+                            Sélectionnez l'un des trois échantillons
+                            fictifs pour commencer l'expérience.
+                        </p>
+
+                        <div class="sample-list">
+
+                            <button class="sample-button selected"
+                                    data-sample="sample-a"
+                                    aria-pressed="true">
+
+                                <div class="sample-art">
+                                    <svg viewBox="0 0 120 90" role="img" aria-label="Illustration abstraite A">
+                                        <circle cx="60" cy="45" r="31" fill="#123b54"/>
+                                        <circle cx="60" cy="45" r="22" fill="none" stroke="#64d8f0" stroke-width="2"/>
+                                        <path d="M39 47 Q48 23 59 43 T82 42" fill="none" stroke="#36b9e9" stroke-width="4"/>
+                                        <circle cx="60" cy="45" r="5" fill="#f4f8fc"/>
+                                    </svg>
+                                </div>
+
+                                <span>Échantillon A</span>
+                            </button>
+
+                            <button class="sample-button"
+                                    data-sample="sample-b"
+                                    aria-pressed="false">
+
+                                <div class="sample-art">
+                                    <svg viewBox="0 0 120 90" role="img" aria-label="Illustration abstraite B">
+                                        <circle cx="60" cy="45" r="31" fill="#123b54"/>
+                                        <circle cx="60" cy="45" r="20" fill="none" stroke="#36b9e9" stroke-width="2"/>
+                                        <path d="M40 45 L52 34 L61 55 L72 31 L82 45" fill="none" stroke="#64d8f0" stroke-width="3"/>
+                                        <circle cx="60" cy="45" r="4" fill="#f4f8fc"/>
+                                    </svg>
+                                </div>
+
+                                <span>Échantillon B</span>
+                            </button>
+
+                            <button class="sample-button"
+                                    data-sample="sample-c"
+                                    aria-pressed="false">
+
+                                <div class="sample-art">
+                                    <svg viewBox="0 0 120 90" role="img" aria-label="Illustration abstraite C">
+                                        <circle cx="60" cy="45" r="31" fill="#123b54"/>
+                                        <circle cx="60" cy="45" r="22" fill="none" stroke="#64d8f0" stroke-width="2"/>
+                                        <path d="M39 50 Q48 63 60 37 Q72 17 82 46" fill="none" stroke="#36b9e9" stroke-width="4"/>
+                                        <circle cx="60" cy="45" r="5" fill="#f4f8fc"/>
+                                    </svg>
+                                </div>
+
+                                <span>Échantillon C</span>
+                            </button>
+
+                        </div>
+
+                        <div class="selected-info" id="sample-description" aria-live="polite">
+                            Échantillon A sélectionné. Prêt pour l'analyse.
+                        </div>
+
+                        <button class="analyze-button" id="analyze-button">
+                            Lancer l'analyse
+                        </button>
+
+                    </section>
+
+                    <!-- RESULT -->
+
+                    <section class="lab-panel result-panel reveal">
+
+                        <span class="page-label">ÉTAPE 02</span>
+
+                        <h2 class="panel-heading" style="margin-top:18px;">
+                            Résultat de la simulation
+                        </h2>
+
+                        <div class="result-placeholder" id="result-placeholder">
+                            <div>
+                                <div class="placeholder-icon">⌁</div>
+                                <p>
+                                    En attente d'un échantillon...
+                                    Lancez l'analyse pour afficher
+                                    un résultat pédagogique.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="result-content" id="result-content"
+                             aria-live="polite">
+
+                            <span class="result-status" id="result-status">
+                                ANALYSE TERMINÉE
+                            </span>
+
+                            <h3 class="result-title" id="result-title">
+                                Résultat
+                            </h3>
+
+                            <p class="result-description" id="result-description">
+                                Description du résultat.
+                            </p>
+
+                            <div class="confidence-heading">
+                                <span>Score de confiance simulé</span>
+                                <strong id="confidence-value">0 %</strong>
+                            </div>
+
+                            <div class="confidence-track">
+                                <div class="confidence-fill" id="confidence-fill"></div>
+                            </div>
+
+                            <div class="result-note">
+                                Ce score est une valeur fictive créée
+                                pour illustrer le fonctionnement d'un
+                                modèle. Il ne représente pas une
+                                probabilité médicale réelle.
+                            </div>
+
+                        </div>
+
+                    </section>
+
+                </div>
+
+                <!-- EXPLANATION -->
+
+                <section class="technical-section reveal">
+
+                    <span class="page-label">COMPRENDRE LE PROCESSUS</span>
+
+                    <h2 class="section-title">
+                        Que se passe-t-il
+                        <span>pendant l'analyse ?</span>
+                    </h2>
+
+                    <p class="section-description">
+                        Dans un système réel, plusieurs opérations
+                        informatiques peuvent intervenir entre la
+                        réception des données et la production
+                        d'un résultat.
+                    </p>
+
+                    <div class="steps-grid">
+
+                        <article class="step-card">
+                            <span class="number">01 / INPUT</span>
+                            <h3>Entrée des données</h3>
+                            <p>
+                                Le système reçoit les informations
+                                qu'il doit traiter.
+                            </p>
+                        </article>
+
+                        <article class="step-card">
+                            <span class="number">02 / PROCESSING</span>
+                            <h3>Traitement</h3>
+                            <p>
+                                Les données sont transformées
+                                et analysées par le modèle.
+                            </p>
+                        </article>
+
+                        <article class="step-card">
+                            <span class="number">03 / OUTPUT</span>
+                            <h3>Résultat</h3>
+                            <p>
+                                Le modèle produit une classification
+                                ou une estimation.
+                            </p>
+                        </article>
+
+                        <article class="step-card">
+                            <span class="number">04 / REVIEW</span>
+                            <h3>Interprétation</h3>
+                            <p>
+                                Le résultat est évalué dans son
+                                contexte par une personne qualifiée.
+                            </p>
+                        </article>
+
+                    </div>
+
+                </section>
+
+                <div class="science-note reveal">
+                    <h3>Important : simulation pédagogique</h3>
+                    <p>
+                        Les échantillons présentés sont des illustrations
+                        abstraites. Les résultats sont prédéfinis dans
+                        le programme et ne proviennent pas d'un modèle
+                        d'intelligence artificielle entraîné. Cette
+                        expérience ne constitue pas un outil de diagnostic
+                        médical et ne doit pas être utilisée pour prendre
+                        une décision concernant la santé.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-content">
+
+            <a href="index.html" class="logo">
+                <span class="logo-icon">M</span>
+                <span>Medi<span class="logo-accent">Vision</span></span>
+            </a>
+
+            <p>
+                Explorer l'intelligence artificielle au service de la médecine.
+            </p>
+
+            <span class="footer-copy">
+                © <span id="current-year"></span> MediVision.
+                Tous droits réservés.
+            </span>
+
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/laboratory.js"></script>
+<script src="js/comparison-chart.js"></script>
+  <script src="js/mini-model.js"></script>
+</body>
+</html>

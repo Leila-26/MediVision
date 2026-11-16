@@ -1,0 +1,961 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Explorez les applications de l'intelligence artificielle dans les différents domaines de la médecine.">
+
+    <meta name="theme-color" content="#071827">
+
+    <title>Applications médicales | MediVision</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .applications-hero {
+            position: relative;
+            overflow: hidden;
+            padding: 85px 0 75px;
+            background:
+                radial-gradient(circle at 85% 40%, rgba(54,185,233,.16), transparent 35%),
+                linear-gradient(180deg, rgba(12,36,56,.4), transparent);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .applications-hero h1 {
+            max-width: 850px;
+            margin-top: 24px;
+            color: var(--white);
+            font-family: var(--display);
+            font-size: clamp(42px, 6vw, 68px);
+            line-height: 1.12;
+            letter-spacing: -2px;
+        }
+
+        .applications-hero h1 span {
+            display: block;
+            color: var(--cyan);
+        }
+
+        .applications-hero p {
+            max-width: 680px;
+            margin-top: 23px;
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+        .page-label {
+            display: inline-block;
+            padding: 8px 14px;
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            color: var(--cyan);
+            background: rgba(100,216,240,.05);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .intro-text {
+            max-width: 800px;
+            margin-bottom: 45px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.95;
+        }
+
+        .application-showcase {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0,1fr));
+            gap: 24px;
+        }
+
+        .medical-card {
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            background: linear-gradient(145deg, #102c44, #091c2c);
+            transition: transform .3s ease, border-color .3s ease;
+        }
+
+        .medical-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(100,216,240,.55);
+        }
+
+        .medical-image {
+            position: relative;
+            height: 235px;
+            overflow: hidden;
+            background: #0b2032;
+        }
+
+        .medical-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: .83;
+            transition: transform .5s ease, opacity .5s ease;
+        }
+
+        .medical-card:hover .medical-image img {
+            transform: scale(1.055);
+            opacity: 1;
+        }
+
+        .image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(0deg, rgba(4,17,29,.8), transparent 65%);
+        }
+
+        .application-tag {
+            position: absolute;
+            left: 18px;
+            bottom: 17px;
+            padding: 7px 12px;
+            border: 1px solid rgba(100,216,240,.35);
+            border-radius: 30px;
+            background: rgba(4,17,29,.75);
+            color: var(--cyan);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            backdrop-filter: blur(8px);
+        }
+
+        .medical-content {
+            padding: 25px;
+        }
+
+        .medical-content h2 {
+            margin-bottom: 12px;
+            color: var(--white);
+            font-family: var(--display);
+            font-size: 22px;
+        }
+
+        .medical-content p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.9;
+        }
+
+        .medical-content details {
+            margin-top: 19px;
+            border-top: 1px solid var(--border);
+            padding-top: 15px;
+        }
+
+        .medical-content summary {
+            color: var(--cyan);
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .medical-content details p {
+            margin-top: 13px;
+            color: var(--text);
+        }
+
+        .section-title {
+            margin-bottom: 17px;
+            color: var(--white);
+            font-family: var(--display);
+            font-size: clamp(27px, 4vw, 39px);
+        }
+
+        .section-title span {
+            color: var(--cyan);
+        }
+
+        .section-description {
+            max-width: 780px;
+            margin-bottom: 30px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+        .workflow {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0,1fr));
+            gap: 15px;
+            margin-top: 35px;
+        }
+
+        .workflow-item {
+            padding: 24px 17px;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            background: rgba(12,36,56,.65);
+            text-align: center;
+        }
+
+        .workflow-number {
+            display: grid;
+            place-items: center;
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 15px;
+            border: 1px solid var(--cyan);
+            border-radius: 50%;
+            color: var(--cyan);
+            font-family: var(--display);
+            font-weight: 700;
+        }
+
+        .workflow-item h3 {
+            margin-bottom: 9px;
+            color: var(--white);
+            font-family: var(--display);
+            font-size: 14px;
+        }
+
+        .workflow-item p {
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.8;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0,1fr));
+            gap: 17px;
+            margin-top: 30px;
+        }
+
+        .benefit-card {
+            padding: 24px;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            background: linear-gradient(145deg, rgba(18,51,77,.6), rgba(7,24,39,.7));
+        }
+
+        .benefit-icon {
+            display: grid;
+            place-items: center;
+            width: 42px;
+            height: 42px;
+            margin-bottom: 17px;
+            border-radius: 11px;
+            color: var(--cyan);
+            background: rgba(100,216,240,.09);
+            font-size: 20px;
+        }
+
+        .benefit-card h3 {
+            margin-bottom: 10px;
+            color: var(--white);
+            font-family: var(--display);
+            font-size: 16px;
+        }
+
+        .benefit-card p {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.85;
+        }
+
+        .responsibility-box {
+            margin-top: 45px;
+            padding: 30px;
+            border: 1px solid rgba(255,190,100,.3);
+            border-radius: 15px;
+            background: rgba(255,190,100,.05);
+        }
+
+        .responsibility-box h3 {
+            margin-bottom: 12px;
+            color: #ffd18a;
+            font-family: var(--display);
+            font-size: 21px;
+        }
+
+        .responsibility-box p {
+            color: var(--text);
+            font-size: 13px;
+            line-height: 1.9;
+        }
+
+        .next-step {
+            margin-top: 65px;
+            padding: 38px 25px;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            background: linear-gradient(120deg, #102c48, #071827);
+            text-align: center;
+        }
+
+        .next-step h2 {
+            color: var(--white);
+            font-family: var(--display);
+            font-size: 28px;
+        }
+
+        .next-step p {
+            max-width: 570px;
+            margin: 13px auto 23px;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.9;
+        }
+
+        @media (max-width: 850px) {
+            .workflow {
+                grid-template-columns: repeat(2, minmax(0,1fr));
+            }
+
+            .benefits-grid {
+                grid-template-columns: repeat(2, minmax(0,1fr));
+            }
+        }
+
+        @media (max-width: 700px) {
+            .applications-hero {
+                padding: 65px 0;
+            }
+
+            .applications-hero h1 {
+                font-size: 43px;
+            }
+
+            .application-showcase {
+                grid-template-columns: 1fr;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .medical-image {
+                height: 210px;
+            }
+
+            .next-step {
+                padding: 28px 20px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .workflow {
+                grid-template-columns: 1fr;
+            }
+
+            .applications-hero h1 {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="container nav-container">
+
+            <a href="index.html" class="logo" aria-label="Accueil MediVision">
+                <span class="logo-icon">M</span>
+                <span>Medi<span class="logo-accent">Vision</span></span>
+            </a>
+
+            <button class="menu-toggle"
+                    aria-label="Ouvrir le menu"
+                    aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav class="nav-links">
+                <a href="index.html">Accueil</a>
+                <a href="ai-medicale.html">IA médicale</a>
+                <a href="applications.html" class="active">Applications</a>
+                <a href="laboratoire.html">Laboratoire</a>
+                <a href="quiz.html">Quiz</a>
+            </nav>
+
+        </div>
+    </header>
+
+
+    <main>
+
+        <section class="applications-hero">
+            <div class="container reveal">
+
+                <span class="page-label">
+                    INNOVATION ET SANTÉ
+                </span>
+
+                <h1>
+                    Une nouvelle ère
+                    <span>pour la médecine.</span>
+                </h1>
+
+                <p>
+                    De l'imagerie médicale à la recherche scientifique,
+                    l'intelligence artificielle ouvre de nouvelles
+                    possibilités pour analyser les données et assister
+                    les professionnels de santé.
+                </p>
+
+            </div>
+        </section>
+
+
+        <section class="section">
+            <div class="container">
+
+                <div class="reveal">
+                    <h2 class="section-title">
+                        Les grands domaines
+                        <span>d'application.</span>
+                    </h2>
+
+                    <p class="intro-text">
+                        L'intelligence artificielle ne se limite pas
+                        à une seule spécialité. Elle peut intervenir
+                        dans plusieurs domaines, avec des méthodes
+                        et des objectifs différents.
+                    </p>
+                </div>
+
+
+                <div class="application-showcase">
+
+                    <!-- CARD 1 -->
+
+                    <article class="medical-card reveal">
+
+                        <div class="medical-image">
+                            <img
+                                src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=1000&auto=format&fit=crop&q=85"
+                                alt="Image scientifique liée à l'imagerie médicale"
+                                loading="lazy">
+
+                            <div class="image-overlay"></div>
+
+                            <span class="application-tag">
+                                IMAGERIE MÉDICALE
+                            </span>
+                        </div>
+
+                        <div class="medical-content">
+
+                            <h2>Analyse des images médicales</h2>
+
+                            <p>
+                                Des systèmes d'IA peuvent analyser
+                                des images telles que les radiographies,
+                                les scanners et les IRM pour repérer
+                                des caractéristiques particulières.
+                            </p>
+
+                            <details>
+                                <summary>Découvrir le fonctionnement</summary>
+
+                                <p>
+                                    Un modèle entraîné sur des images
+                                    annotées apprend à reconnaître
+                                    certains motifs visuels. Il peut
+                                    ensuite signaler des zones à examiner
+                                    par un professionnel de santé.
+                                </p>
+                            </details>
+
+                        </div>
+                    </article>
+
+
+                    <!-- CARD 2 -->
+
+                    <article class="medical-card reveal">
+
+                        <div class="medical-image">
+                            <img
+                                src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1000&auto=format&fit=crop&q=85"
+                                alt="Professionnel de santé utilisant des technologies médicales"
+                                loading="lazy">
+
+                            <div class="image-overlay"></div>
+
+                            <span class="application-tag">
+                                CARDIOLOGIE
+                            </span>
+                        </div>
+
+                        <div class="medical-content">
+
+                            <h2>Surveillance cardiovasculaire</h2>
+
+                            <p>
+                                Certains algorithmes peuvent analyser
+                                des signaux cardiaques, comme
+                                les électrocardiogrammes, afin
+                                d'aider à repérer des anomalies.
+                            </p>
+
+                            <details>
+                                <summary>Découvrir le fonctionnement</summary>
+
+                                <p>
+                                    Le système traite les signaux
+                                    électriques du cœur et recherche
+                                    des caractéristiques qui peuvent
+                                    nécessiter une évaluation médicale.
+                                </p>
+                            </details>
+
+                        </div>
+                    </article>
+
+
+                    <!-- CARD 3 -->
+
+                    <article class="medical-card reveal">
+
+                        <div class="medical-image">
+                            <img
+                                src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=1000&auto=format&fit=crop&q=85"
+                                alt="Recherche scientifique en laboratoire"
+                                loading="lazy">
+
+                            <div class="image-overlay"></div>
+
+                            <span class="application-tag">
+                                RECHERCHE SCIENTIFIQUE
+                            </span>
+                        </div>
+
+                        <div class="medical-content">
+
+                            <h2>Recherche biomédicale</h2>
+
+                            <p>
+                                L'IA peut aider les chercheurs
+                                à examiner de grands ensembles
+                                de données biologiques et à identifier
+                                des relations intéressantes.
+                            </p>
+
+                            <details>
+                                <summary>Découvrir le fonctionnement</summary>
+
+                                <p>
+                                    Les modèles informatiques peuvent
+                                    comparer des données, détecter
+                                    des tendances et aider à formuler
+                                    de nouvelles pistes de recherche.
+                                </p>
+                            </details>
+
+                        </div>
+                    </article>
+
+
+                    <!-- CARD 4 -->
+
+                    <article class="medical-card reveal">
+
+                        <div class="medical-image">
+                            <img
+                                src="https://images.unsplash.com/photo-1584982751601-97dcc096659c?w=1000&auto=format&fit=crop&q=85"
+                                alt="Équipe médicale dans un environnement hospitalier"
+                                loading="lazy">
+
+                            <div class="image-overlay"></div>
+
+                            <span class="application-tag">
+                                ASSISTANCE MÉDICALE
+                            </span>
+                        </div>
+
+                        <div class="medical-content">
+
+                            <h2>Aide à la décision clinique</h2>
+
+                            <p>
+                                Certains outils peuvent organiser
+                                et analyser des informations
+                                pour fournir des éléments utiles
+                                à l'évaluation d'une situation médicale.
+                            </p>
+
+                            <details>
+                                <summary>Découvrir le fonctionnement</summary>
+
+                                <p>
+                                    Ces outils combinent différentes
+                                    informations disponibles et
+                                    présentent des résultats que
+                                    le professionnel de santé doit
+                                    interpréter avec prudence.
+                                </p>
+                            </details>
+
+                        </div>
+                    </article>
+
+
+                    <!-- CARD 5 -->
+
+                    <article class="medical-card reveal">
+
+                        <div class="medical-image">
+                            <img
+                                src="https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=1000&auto=format&fit=crop&q=85"
+                                alt="Technologies et équipements de laboratoire"
+                                loading="lazy">
+
+                            <div class="image-overlay"></div>
+
+                            <span class="application-tag">
+                                ANALYSE BIOLOGIQUE
+                            </span>
+                        </div>
+
+                        <div class="medical-content">
+
+                            <h2>Analyse des données biologiques</h2>
+
+                            <p>
+                                Les méthodes d'apprentissage automatique
+                                peuvent contribuer à analyser des
+                                données issues de la biologie et
+                                de certaines analyses de laboratoire.
+                            </p>
+
+                            <details>
+                                <summary>Découvrir le fonctionnement</summary>
+
+                                <p>
+                                    Les modèles peuvent étudier
+                                    des relations entre plusieurs
+                                    variables biologiques et aider
+                                    les chercheurs à mieux comprendre
+                                    certains phénomènes.
+                                </p>
+                            </details>
+
+                        </div>
+                    </article>
+
+
+                    <!-- CARD 6 -->
+
+                    <article class="medical-card reveal">
+
+                        <div class="medical-image">
+                            <img
+                                src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1000&auto=format&fit=crop&q=85"
+                                alt="Technologie numérique utilisée dans les soins"
+                                loading="lazy">
+
+                            <div class="image-overlay"></div>
+
+                            <span class="application-tag">
+                                SANTÉ NUMÉRIQUE
+                            </span>
+                        </div>
+
+                        <div class="medical-content">
+
+                            <h2>Suivi et organisation des soins</h2>
+
+                            <p>
+                                Certaines applications peuvent
+                                aider à organiser des informations,
+                                faciliter le suivi de paramètres
+                                et soutenir des tâches administratives.
+                            </p>
+
+                            <details>
+                                <summary>Découvrir le fonctionnement</summary>
+
+                                <p>
+                                    Des algorithmes peuvent traiter
+                                    des informations structurées
+                                    afin de faciliter leur consultation
+                                    et leur organisation par les équipes
+                                    concernées.
+                                </p>
+                            </details>
+
+                        </div>
+                    </article>
+
+                </div>
+
+
+                <!-- WORKFLOW -->
+
+                <div class="content-block reveal" style="margin-top:85px;">
+
+                    <span class="page-label">PROCESSUS</span>
+
+                    <h2 class="section-title" style="margin-top:22px;">
+                        De la donnée
+                        <span>à l'assistance médicale.</span>
+                    </h2>
+
+                    <p class="section-description">
+                        Voici une représentation simplifiée du parcours
+                        d'une donnée lorsqu'elle est utilisée par
+                        un système d'intelligence artificielle.
+                    </p>
+
+                    <div class="workflow">
+
+                        <article class="workflow-item">
+                            <div class="workflow-number">01</div>
+                            <h3>Données</h3>
+                            <p>
+                                Acquisition d'informations
+                                adaptées à l'objectif.
+                            </p>
+                        </article>
+
+                        <article class="workflow-item">
+                            <div class="workflow-number">02</div>
+                            <h3>Algorithme</h3>
+                            <p>
+                                Traitement des informations
+                                par un modèle informatique.
+                            </p>
+                        </article>
+
+                        <article class="workflow-item">
+                            <div class="workflow-number">03</div>
+                            <h3>Résultats</h3>
+                            <p>
+                                Production d'une estimation
+                                ou d'une classification.
+                            </p>
+                        </article>
+
+                        <article class="workflow-item">
+                            <div class="workflow-number">04</div>
+                            <h3>Évaluation humaine</h3>
+                            <p>
+                                Interprétation du résultat
+                                par un professionnel.
+                            </p>
+                        </article>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BENEFITS -->
+
+                <div class="content-block reveal" style="margin-top:75px;">
+
+                    <span class="page-label">IMPACT</span>
+
+                    <h2 class="section-title" style="margin-top:22px;">
+                        Pourquoi ces applications
+                        <span>sont-elles importantes ?</span>
+                    </h2>
+
+                    <div class="benefits-grid">
+
+                        <article class="benefit-card">
+                            <div class="benefit-icon">⌁</div>
+                            <h3>Gain de temps</h3>
+                            <p>
+                                Automatiser certaines tâches
+                                répétitives de traitement
+                                et d'organisation des données.
+                            </p>
+                        </article>
+
+                        <article class="benefit-card">
+                            <div class="benefit-icon">◈</div>
+                            <h3>Analyse approfondie</h3>
+                            <p>
+                                Examiner des données complexes
+                                et rechercher des relations
+                                entre plusieurs paramètres.
+                            </p>
+                        </article>
+
+                        <article class="benefit-card">
+                            <div class="benefit-icon">✧</div>
+                            <h3>Innovation</h3>
+                            <p>
+                                Développer de nouvelles méthodes
+                                d'analyse et soutenir la recherche.
+                            </p>
+                        </article>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RESPONSIBILITY -->
+
+                <div class="responsibility-box reveal">
+
+                    <h3>Une technologie qui exige de la responsabilité.</h3>
+
+                    <p>
+                        L'utilisation de l'intelligence artificielle
+                        en médecine doit respecter la confidentialité
+                        des données, la sécurité des patients,
+                        la qualité scientifique et la supervision
+                        des professionnels de santé. Les résultats
+                        d'un système automatisé ne remplacent pas
+                        une évaluation médicale.
+                    </p>
+
+                    <p style="margin-top:15px;">
+                        La fiabilité d'un modèle dépend notamment
+                        de la qualité et de la représentativité
+                        des données utilisées pour son entraînement.
+                        Des données insuffisamment diversifiées
+                        peuvent introduire des biais et réduire
+                        la précision des résultats pour certains
+                        groupes de patients.
+                    </p>
+
+                    <p style="margin-top:15px;">
+                        Avant son utilisation en pratique médicale,
+                        un système doit faire l'objet d'une validation
+                        adaptée à son usage prévu. Ses performances
+                        et sa sécurité doivent également être
+                        surveillées après son déploiement.
+                    </p>
+
+                </div>
+
+
+                <!-- SCIENTIFIC REFERENCES -->
+
+                <section class="content-block reveal" style="margin-top:65px;">
+
+                    <span class="page-label">SOURCES SCIENTIFIQUES</span>
+
+                    <h2 class="section-title" style="margin-top:22px;">
+                        Pour aller <span>plus loin.</span>
+                    </h2>
+
+                    <p class="section-description">
+                        Les informations présentées dans cette page
+                        s'appuient notamment sur les publications
+                        et recommandations des organismes suivants.
+                    </p>
+
+                    <div class="benefits-grid">
+
+                        <article class="benefit-card">
+
+                            <div class="benefit-icon">01</div>
+
+                            <h3>Organisation mondiale de la Santé</h3>
+
+                            <p>
+                                Guide consacré à l'éthique et à la
+                                gouvernance de l'intelligence artificielle
+                                dans le domaine de la santé.
+                            </p>
+
+                            <a href="https://www.who.int/publications/i/item/9789240029200"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               style="display:inline-block;margin-top:15px;color:var(--cyan);font-size:12px;">
+                                Consulter la publication →
+                            </a>
+
+                        </article>
+
+                        <article class="benefit-card">
+
+                            <div class="benefit-icon">02</div>
+
+                            <h3>Food and Drug Administration</h3>
+
+                            <p>
+                                Informations officielles sur les
+                                dispositifs médicaux intégrant
+                                l'intelligence artificielle et leur
+                                évaluation.
+                            </p>
+
+                            <a href="https://www.fda.gov/medical-devices/digital-health-center-excellence/artificial-intelligence-enabled-medical-devices"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               style="display:inline-block;margin-top:15px;color:var(--cyan);font-size:12px;">
+                                Consulter les informations →
+                            </a>
+
+                        </article>
+
+                    </div>
+
+                </section>
+
+
+                <!-- NEXT PAGE -->
+
+                <div class="next-step reveal">
+
+                    <span class="page-label">À VOUS D'EXPLORER</span>
+
+                    <h2>Place à l'expérimentation.</h2>
+
+                    <p>
+                        Passez de la découverte théorique à des
+                        expériences interactives pour comprendre
+                        certains mécanismes de l'intelligence artificielle.
+                    </p>
+
+                    <a href="laboratoire.html" class="btn btn-primary">
+                        Entrer dans le laboratoire
+                    </a>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <footer class="footer">
+        <div class="container footer-content">
+
+            <a href="index.html" class="logo">
+                <span class="logo-icon">M</span>
+                <span>Medi<span class="logo-accent">Vision</span></span>
+            </a>
+
+            <p>
+                Explorer l'intelligence artificielle au service de la médecine.
+            </p>
+
+            <span class="footer-copy">
+                © <span id="current-year"></span> MediVision.
+                Tous droits réservés.
+            </span>
+
+        </div>
+    </footer>
+
+
+    <script src="js/main.js"></script>
+
+</body>
+</html>
